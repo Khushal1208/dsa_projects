@@ -1,0 +1,71 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+
+//define the structure for a linked  list node
+struct node{
+    int data;
+    struct node* next;
+};
+
+//funtion to merge two sorted linked lists
+struct node* mergelists(struct node* list1,struct node* list2){
+     if(list1==NULL){
+     return list2;
+     }
+     
+     if(list2==NULL){
+     return list1;
+     }
+     
+     struct node* result = NULL;
+     if(list1->data<=list2->data){
+         result = list1;
+         result->next = mergelists(list1->next, list2);
+     }
+     else{
+         result=list2;
+         result->next = mergelists(list2->next, list1);
+     }
+     return result;
+};
+
+struct node* newnode(int data){
+    struct node* node = (struct node*)malloc(sizeof(struct node));
+    node->data = data; 
+    node->next = NULL;
+    return node;
+};
+
+//funtion to print a linked list
+
+void printlist(struct node* node){
+    while(node!=NULL){
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int main(){
+    struct node* list1 = newnode(1);
+    list1->next = newnode(3);
+    list1->next->next = newnode(5);
+    
+    struct node* list2 = newnode(2);
+    list2->next = newnode(4);
+    list2->next->next = newnode(6);
+    
+    printf("list 1: ");
+    printlist(list1);
+    
+    printf("list 2: ");
+    printlist(list2);
+    
+    struct node* mergelist = mergelists(list1,list2);
+    
+    printf("merged list: ");
+    printlist(mergelist);
+    
+    return 0;
+}
