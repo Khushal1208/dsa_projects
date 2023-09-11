@@ -1,4 +1,4 @@
-
+// merging two linked lists
 #include<stdio.h>
 #include<stdlib.h>
 
